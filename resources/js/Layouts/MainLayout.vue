@@ -47,6 +47,14 @@ import CustomNavLink from '@/Components/CustomNavLink.vue'
               Dashboard
             </CustomNavLink>
 
+            <CustomNavLink 
+              :href="route('service.list')"
+              :active="route().current('service.list')"
+            >
+              <Cross class="h-4 w-4" />
+              Serviços
+            </CustomNavLink>
+
             <!-- <CustomNavLink 
               :href="route('disease.list')"
               :active="route().current('disease.list')"
@@ -134,6 +142,14 @@ import CustomNavLink from '@/Components/CustomNavLink.vue'
               >
                 <Home class="h-4 w-4" />
                 Dashboard
+              </CustomNavLink>
+
+              <CustomNavLink 
+                :href="route('service.list')"
+                :active="route().current('service.list')"
+              >
+                <Cross class="h-4 w-4" />
+                Serviços
               </CustomNavLink>
 
               <!-- <CustomNavLink 
