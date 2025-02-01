@@ -1,0 +1,39 @@
+services:
+  db:
+    image: mysql:9.0
+    container_name: mysql-centertech-db
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    ports:
+      - "5000:3306"
+    volumes:
+      - centertech-db:/var/lib/mysql
+    networks:
+      - centertech-network
+
+  phpmyadmin:
+    container_name: phpmyadmin-centertech
+    image: phpmyadmin:5.2
+    restart: always
+    ports:
+      - "5001:80"
+    networks:
+      - centertech-network
+    environment:
+      PMA_HOST: db
+      UPLOAD_LIMIT: 100000000
+    depends_on:
+      - db
+
+networks:
+  centertech-network:
+    name: centertech-network
+    driver: bridge
+    
+volumes:
+  centertech-db:
+    driver: local
