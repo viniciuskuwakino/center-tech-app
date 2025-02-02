@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('serial_number', 100);
             $table->text('description');
             $table->decimal('price', 9, 2);
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }
