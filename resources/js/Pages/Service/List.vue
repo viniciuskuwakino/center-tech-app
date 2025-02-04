@@ -3,7 +3,7 @@ import MainLayout from '@/Layouts/MainLayout.vue'
 import { Head } from '@inertiajs/vue3';
 import { ColumnDef } from '@tanstack/vue-table';
 import { h, onMounted, ref } from 'vue'
-// import { DataTable } from '@/components/ui/data-table'
+import { DataTable } from '@/components/ui/data-table'
 import Checkbox from '@/components/ui/checkbox/Checkbox.vue';
 import Button from '@/components/ui/button/Button.vue';
 import { ArrowUpDown, ChevronDown } from 'lucide-vue-next'
@@ -27,23 +27,11 @@ interface Service {
   updated_at: Date;
 }
 
-// interface Role {
-//   id: number;
-//   name: string;
-// }
-
 const props = defineProps<{
   services: Service[];
 }>();
 
 console.log('services', props.services)
-
-// interface Payment {
-//   id: string
-//   amount: number
-//   status: 'pending' | 'processing' | 'success' | 'failed'
-//   email: string
-// }
 
 const columns: ColumnDef<Service>[] = [
   // {
@@ -61,6 +49,61 @@ const columns: ColumnDef<Service>[] = [
   //   enableSorting: false,
   //   enableHiding: false,
   // },
+  {
+    accessorKey: 'id',
+    header: 'ID',
+    cell: ({ row }) => h('div', { class: 'capitalize' }, row.getValue('id')),
+  },
+  {
+    accessorKey: 'client_name',
+    header: 'Cliente',
+    cell: ({ row }) => h('div', { class: 'capitalize' }, row.getValue('client_name')),
+  },
+  {
+    accessorKey: 'client_phone',
+    header: 'Contato',
+    cell: ({ row }) => h('div', { class: 'capitalize' }, row.getValue('client_phone')),
+  },
+  {
+    accessorKey: 'brand',
+    header: 'Marca',
+    cell: ({ row }) => h('div', { class: 'capitalize' }, row.getValue('brand')),
+  },
+  {
+    accessorKey: 'device',
+    header: 'Dispositivo',
+    cell: ({ row }) => h('div', { class: 'capitalize' }, row.getValue('device')),
+  },
+  {
+    accessorKey: 'model',
+    header: 'Modelo',
+    cell: ({ row }) => h('div', { class: 'capitalize' }, row.getValue('model')),
+  },
+  {
+    accessorKey: 'serial_number',
+    header: 'N. Série',
+    cell: ({ row }) => h('div', { class: 'capitalize' }, row.getValue('serial_number')),
+  },
+  {
+    accessorKey: 'price',
+    header: 'Preço',
+    cell: ({ row }) => h('div', { class: 'capitalize' }, row.getValue('price')),
+  },
+  {
+    accessorKey: 'status',
+    header: 'Pagamento',
+    cell: ({ row }) => {
+
+      const status: string = row.getValue('status') === 1 ? 'Realizado' : 'Pendente'
+
+      if (status == 'Realizado') {
+        return h(Badge, { class: 'capitalize', variant: 'success' }, () => status)
+      } else {
+        return h(Badge, { class: 'capitalize', variant: 'destructive' }, () => status)
+      }
+
+    },
+  },
   // {
   //   accessorKey: 'status',
   //   header: 'Status',
@@ -127,11 +170,11 @@ const columns: ColumnDef<Service>[] = [
       </h1>
     </div>
 
-    <!-- <ScrollArea class="border rounded-md whitespace-nowrap">
+    <ScrollArea class="border rounded-md whitespace-nowrap">
       
-      <DataTable :columns="columns" :data="props.users" />
+      <DataTable :columns="columns" :data="props.services" />
       <ScrollBar orientation="horizontal" />
-    </ScrollArea> -->
+    </ScrollArea>
       
       <!-- <div class="flex flex-col items-center gap-1 text-center">
         <h3 class="text-2xl font-bold tracking-tight">
